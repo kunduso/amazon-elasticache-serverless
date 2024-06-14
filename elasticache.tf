@@ -14,6 +14,6 @@ resource "aws_elasticache_serverless_cache" "example" {
   description              = "Redis cache server for ${var.name}"
   major_engine_version     = "7"
   snapshot_retention_limit = 1
-  security_group_ids       = [aws_security_group.test.id]
-  subnet_ids               = aws_subnet.test[*].id
+  security_group_ids       = [aws_security_group.custom_sg.id]
+  subnet_ids               = aws_subnet.private[*].id
 }
