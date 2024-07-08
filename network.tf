@@ -28,17 +28,6 @@ resource "aws_route_table_association" "public" {
   subnet_id      = element(aws_subnet.public.*.id, count.index)
   route_table_id = aws_route_table.this_rt.id
 }
-resource "aws_internet_gateway" "this_igw" {
-  vpc_id = aws_vpc.this.id
-  tags = {
-    "Name" = "${var.name}-gateway"
-  }
-}
-resource "aws_route" "internet_route" {
-  destination_cidr_block = "0.0.0.0/0"
-  route_table_id         = aws_route_table.this_rt.id
-  gateway_id             = aws_internet_gateway.this_igw.id
-}
 resource "aws_subnet" "private" {
   count             = length(var.subnet_cidr_public)
   vpc_id            = aws_vpc.this.id
