@@ -1,3 +1,4 @@
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/elasticache_serverless_cache
 resource "aws_elasticache_serverless_cache" "example" {
   engine = "redis"
   name   = var.name
@@ -16,4 +17,5 @@ resource "aws_elasticache_serverless_cache" "example" {
   snapshot_retention_limit = 1
   security_group_ids       = [aws_security_group.custom_sg.id]
   subnet_ids               = aws_subnet.private[*].id
+  kms_key_id               = aws_kms_key.custom_kms_key.arn
 }
