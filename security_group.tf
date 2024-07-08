@@ -10,6 +10,8 @@ resource "aws_security_group" "custom_sg" {
   tags = {
     "Name" = "${var.name}-sg"
   }
+  #checkov:skip=CKV2_AWS_5: "Ensure that Security Groups are attached to another resource"
+  #This security group is attached to the Amazon ElastiCache Serverless resource
 }
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule
 resource "aws_security_group_rule" "ingress_custom_sg" {
