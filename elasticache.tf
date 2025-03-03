@@ -1,5 +1,5 @@
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/elasticache_serverless_cache
-resource "aws_elasticache_serverless_cache" "example" {
+resource "aws_elasticache_serverless_cache" "serverless_cache" {
   engine = "redis"
   name   = var.name
   cache_usage_limits {
