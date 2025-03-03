@@ -4,5 +4,6 @@ terraform {
     encrypt = true
     key     = "tf/amazon-elasticache-serverless/terraform.tfstate"
     region  = "us-east-2"
+    use_lockfile = true
   }
 }
