@@ -12,4 +12,6 @@ module "vpc" {
   vpc_cidr                = var.vpc_cidr
   subnet_cidr_public      = var.subnet_cidr_public
   subnet_cidr_private     = var.subnet_cidr_private
+  #CKV_TF_1: Ensure Terraform module sources use a commit hash
+  #checkov:skip=CKV_TF_1: This is a self hosted module where the version number is tagged rather than the commit hash.
 }
