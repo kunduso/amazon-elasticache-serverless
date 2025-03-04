@@ -1,5 +1,6 @@
 variables {
-  name = "test-redis-cache"
+  name   = "app-9-test-redis-cache"
+  region = "us-east-1"
 }
 
 run "elasticache_serverless_validation" {

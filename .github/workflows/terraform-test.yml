@@ -12,11 +12,7 @@ on:
       - '**/README.md'
 
 permissions: read-all
-#--------------------------
-#
-# PLEASE READ: Add a GitHub Actions variable 'INFRACOST_SCAN_TYPE' and set the value to either 'hcl_code' or 'tf_plan' depending on what type of Infracost scan desired.
-#
-#--------------------------
+
 jobs:
   terraform:
     name: 'continuous-integration'
@@ -41,7 +37,7 @@ jobs:
       with:
         role-to-assume: ${{ secrets.IAM_ROLE }}
         role-session-name: AWSSession
-        aws-region: us-east-2
+        aws-region: us-east-1
 
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
