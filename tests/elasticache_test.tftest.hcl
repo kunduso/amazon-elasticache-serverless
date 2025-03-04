@@ -70,58 +70,58 @@ run "backup_configuration" {
   }
 }
 
-# # Test resource naming and description
-# run "resource_metadata" {
-#   command = plan
+# Test resource naming and description
+run "resource_metadata" {
+  command = plan
 
-#   assert {
-#     condition     = can(regex("Redis cache server for.*", aws_elasticache_serverless_cache.serverless_cache.description))
-#     error_message = "Description must follow the expected format"
-#   }
-# }
-# # Test for post-deployment configuration
-# run "post_deployment_validation" {
-#   command = apply
+  assert {
+    condition     = can(regex("Redis cache server for.*", aws_elasticache_serverless_cache.serverless_cache.description))
+    error_message = "Description must follow the expected format"
+  }
+}
+# Test for post-deployment configuration
+run "post_deployment_validation" {
+  command = apply
 
-#   # Validate KMS encryption configuration
-#   assert {
-#     condition     = aws_elasticache_serverless_cache.serverless_cache.kms_key_id != ""
-#     error_message = "KMS key must be configured for encryption"
-#   }
+  # Validate KMS encryption configuration
+  assert {
+    condition     = aws_elasticache_serverless_cache.serverless_cache.kms_key_id != ""
+    error_message = "KMS key must be configured for encryption"
+  }
 
-#   # Validate that the cache endpoint is created
-#   assert {
-#     condition     = can(aws_elasticache_serverless_cache.serverless_cache.endpoint[0].address)
-#     error_message = "Cache endpoint address was not created"
-#   }
+  # Validate that the cache endpoint is created
+  assert {
+    condition     = can(aws_elasticache_serverless_cache.serverless_cache.endpoint[0].address)
+    error_message = "Cache endpoint address was not created"
+  }
 
-#   # Validate that the cache port is set correctly (default Redis port)
-#   assert {
-#     condition     = aws_elasticache_serverless_cache.serverless_cache.endpoint[0].port == 6379
-#     error_message = "Cache endpoint port is not set to default Redis port (6379)"
-#   }
+  # Validate that the cache port is set correctly (default Redis port)
+  assert {
+    condition     = aws_elasticache_serverless_cache.serverless_cache.endpoint[0].port == 6379
+    error_message = "Cache endpoint port is not set to default Redis port (6379)"
+  }
 
-#   # Validate the cache status
-#   assert {
-#     condition     = aws_elasticache_serverless_cache.serverless_cache.status == "available"
-#     error_message = "Cache is not in available state"
-#   }
+  # Validate the cache status
+  assert {
+    condition     = aws_elasticache_serverless_cache.serverless_cache.status == "available"
+    error_message = "Cache is not in available state"
+  }
 
-#   # Validate reader endpoint configuration (if applicable)
-#   assert {
-#     condition     = can(aws_elasticache_serverless_cache.serverless_cache.reader_endpoint[0].address)
-#     error_message = "Reader endpoint was not created"
-#   }
+  # Validate reader endpoint configuration (if applicable)
+  assert {
+    condition     = can(aws_elasticache_serverless_cache.serverless_cache.reader_endpoint[0].address)
+    error_message = "Reader endpoint was not created"
+  }
 
-#   # Validate that the cache has an ARN
-#   assert {
-#     condition     = can(regex("^arn:aws:elasticache:", aws_elasticache_serverless_cache.serverless_cache.arn))
-#     error_message = "Cache ARN is not in the correct format"
-#   }
+  # Validate that the cache has an ARN
+  assert {
+    condition     = can(regex("^arn:aws:elasticache:", aws_elasticache_serverless_cache.serverless_cache.arn))
+    error_message = "Cache ARN is not in the correct format"
+  }
 
-#   # Validate that the cache is in a VPC
-#   assert {
-#     condition     = length(aws_elasticache_serverless_cache.serverless_cache.subnet_ids) >= 2
-#     error_message = "Cache must be deployed across at least two subnets for high availability"
-#   }
-# }
+  # Validate that the cache is in a VPC
+  assert {
+    condition     = length(aws_elasticache_serverless_cache.serverless_cache.subnet_ids) >= 2
+    error_message = "Cache must be deployed across at least two subnets for high availability"
+  }
+}
