@@ -64,5 +64,10 @@ jobs:
     # Tests the Terraform configurations against the test cases defined in the `Tests` folder
     - name: Terraform Test
       id: test
-      run: terraform test
-
+      run: terraform test -junit-xml test_result.xml
+    # # Publish the test results into the GitHub Actions workflow summary
+    # - name: Test Summary
+    #   uses: test-summary/action@v2
+    #   with:
+    #     paths: "test_result.xml"
+    #   if: always()
