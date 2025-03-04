@@ -15,7 +15,7 @@ permissions: read-all
 
 jobs:
   terraform:
-    name: 'continuous-integration'
+    name: 'test'
     runs-on: ubuntu-latest
     environment: development
     permissions:
