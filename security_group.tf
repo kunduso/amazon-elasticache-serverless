@@ -1,12 +1,8 @@
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/default_security_group
-resource "aws_default_security_group" "default" {
-  vpc_id = aws_vpc.this.id
-}
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group
 resource "aws_security_group" "custom_sg" {
   name        = "${var.name}_allow_inbound_access"
   description = "manage traffic for ${var.name}"
-  vpc_id      = aws_vpc.this.id
+  vpc_id      = module.vpc.vpc.id
   tags = {
     "Name" = "${var.name}-sg"
   }

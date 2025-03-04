@@ -38,8 +38,3 @@ variable "subnet_cidr_private" {
   type        = list(any)
   default     = ["12.25.15.64/27", "12.25.15.96/27"]
 }
-variable "availability_zone" {
-  description = "The availability zones for teh public subnets."
-  type        = list(any)
-  default     = ["us-east-2a", "us-east-2b"]
-}
