@@ -1,6 +1,6 @@
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/elasticache_serverless_cache
 resource "aws_elasticache_serverless_cache" "serverless_cache" {
-  engine = "redis"
+  engine = "valkey"
   name   = var.name
   cache_usage_limits {
     data_storage {
@@ -12,7 +12,7 @@ resource "aws_elasticache_serverless_cache" "serverless_cache" {
     }
   }
   daily_snapshot_time      = "09:00"
-  description              = "Redis cache server for ${var.name}"
+  description              = "Valkey cache server for ${var.name}"
   major_engine_version     = "7"
   snapshot_retention_limit = 1
   security_group_ids       = [aws_security_group.custom_sg.id]

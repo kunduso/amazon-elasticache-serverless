@@ -24,25 +24,26 @@ resource "aws_kms_key_policy" "encrypt_app" {
         Resource = "*"
         Sid      = "Enable IAM User Permissions"
       },
-      #   {
-      #     Effect : "Allow",
-      #     Principal : {
-      #       Service : "${local.principal_logs_arn}"
-      #     },
-      #     Action : [
-      #       "kms:Encrypt*",
-      #       "kms:Decrypt*",
-      #       "kms:ReEncrypt*",
-      #       "kms:GenerateDataKey*",
-      #       "kms:Describe*"
-      #     ],
-      #     Resource : "*",
-      #     Condition : {
-      #       ArnEquals : {
-      #         "kms:EncryptionContext:aws:logs:arn" : [local.ecs_log_group_arn]
-      #       }
-      #     }
-      #   }
+      {
+        Sid    = "Allow ElastiCache Service"
+        Effect = "Allow"
+        Principal = {
+          Service = "elasticache.amazonaws.com"
+        }
+        Action = [
+          "kms:Decrypt",
+          "kms:GenerateDataKey",
+          "kms:CreateGrant",
+          "kms:ReEncrypt*",
+          "kms:DescribeKey"
+        ]
+        Resource = "*"
+        Condition = {
+          StringEquals = {
+            "kms:ViaService" = "elasticache.${var.region}.amazonaws.com"
+          }
+        }
+      }
     ]
     Version = "2012-10-17"
   })
