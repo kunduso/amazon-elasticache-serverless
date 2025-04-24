@@ -1,5 +1,5 @@
 variables {
-  name   = "app-9-test-redis-cache"
+  name   = "app-9-test-valkey-cache"
   region = "us-east-1"
 }
 
@@ -14,8 +14,8 @@ run "elasticache_serverless_validation" {
 
   # Validate the engine configuration
   assert {
-    condition     = aws_elasticache_serverless_cache.serverless_cache.engine == "redis"
-    error_message = "ElastiCache engine must be redis"
+    condition     = aws_elasticache_serverless_cache.serverless_cache.engine == "valkey"
+    error_message = "ElastiCache engine must be valkey"
   }
 
   # Validate major engine version
@@ -76,7 +76,7 @@ run "resource_metadata" {
   command = plan
 
   assert {
-    condition     = can(regex("Redis cache server for.*", aws_elasticache_serverless_cache.serverless_cache.description))
+    condition     = can(regex("Valkey cache server for.*", aws_elasticache_serverless_cache.serverless_cache.description))
     error_message = "Description must follow the expected format"
   }
 }
@@ -96,10 +96,10 @@ run "post_deployment_validation" {
     error_message = "Cache endpoint address was not created"
   }
 
-  # Validate that the cache port is set correctly (default Redis port)
+  # Validate that the cache port is set correctly (default port)
   assert {
     condition     = aws_elasticache_serverless_cache.serverless_cache.endpoint[0].port == 6379
-    error_message = "Cache endpoint port is not set to default Redis port (6379)"
+    error_message = "Cache endpoint port is not set to default port (6379)"
   }
 
   # Validate the cache status
